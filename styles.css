@@ -163,8 +163,8 @@ body {
   margin-top: 20px;
 }
 .checklist-item-view {
-  background-color: var(--light-background);
-  padding: 15px;
+  background-color: #6c2eff30;
+  padding: 10px;
   border-radius: var(--button-radius);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 10px;
@@ -190,7 +190,7 @@ body {
 /* Checklist Item Styles */
 .checklist-item {
   background-color: var(--light-background);
-  padding: 15px;
+  padding: 10px;
   border-radius: var(--button-radius);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 10px;
@@ -206,16 +206,18 @@ body {
   display: grid;
   grid-template-columns: 1fr 100px;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .checklist-item-input {
   display: block;
+  padding: 5px 10px;
 }
 
 .checklist-item-description {
   width: 100%;
   display: flex;
+  padding: 5px 10px;
 }
 
 .checklist-buttons {

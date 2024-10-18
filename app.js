@@ -44,8 +44,6 @@ const addChecklistItem = (
       </div>
       <textarea class="checklist-item-description" rows="2"
         placeholder="Enter checklist item description...">${description}</textarea>
-  
-      
     `;
   checkListItemWrap.appendChild(checklistItem);
 };
@@ -166,8 +164,8 @@ function renderChecklistFromJSON(jsonData) {
 }
 
 window.onload = function () {
-    loadSavedChecklists();
-    };
+  loadSavedChecklists();
+};
 
 function saveChecklistToIndexedDB() {
   const checklistTitle = document.getElementById("checklist-title").value;
@@ -242,27 +240,21 @@ function renderViewChecklist(checklist) {
   checklist.items.forEach((item) => {
     const checklistItem = document.createElement("div");
     checklistItem.classList.add("checklist-item-view");
-    // checklistItem.onclick = toggleCheck.bind(null, checklistItem);
+    let x = item.description ? `<textarea class="checklist-item-description" disabled>${
+          item.description
+        }</textarea>` : "";
     checklistItem.innerHTML = `
         <div class="checklist-item-checkbox">
           <input type="checkbox" ${
             item.checkStatus ? "checked" : ""
           } />  <span class="checklist-item-title">${item.title}</span>
         </div>
-       
-        <textarea class="checklist-item-description" disabled>${
-          item.description
-        }</textarea>
+        ${x}
       `;
     checklistItemsWrap.appendChild(checklistItem);
     textAreaAdjust(checklistItem.querySelector(".checklist-item-description"));
   });
 }
-
-// function toggleCheck(element) {
-//     const checkbox = element.querySelector("input[type='checkbox']");
-//     checkbox.checked = !checkbox.checked;
-//   }
 
 // Function to fetch saved checklists from IndexedDB and render them in the sidebar
 function loadSavedChecklists() {
@@ -332,11 +324,12 @@ function editChecklist(title) {
           </div>
         `;
 
-      const checklistItemsWrap = document.getElementById("checklist-items");
-
       // Populate the checklist items
       checklist.items.forEach((item) => {
+        if (item.title){
         addChecklistItem(item.title, item.description, item.checkStatus);
+        }
+      
       });
     } else {
       console.error(`No checklist found with title: ${title}`);
@@ -423,4 +416,3 @@ function exportChecklist(title) {
     console.error("Error exporting checklist", event);
   };
 }
-
