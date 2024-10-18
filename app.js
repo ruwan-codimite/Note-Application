@@ -1,5 +1,6 @@
 // Open the IndexedDB or create if it doesn't exist
 let db;
+var isDB = false;
 const request = indexedDB.open("ChecklistDB", 1);
 
 request.onupgradeneeded = function (event) {
@@ -11,6 +12,7 @@ request.onupgradeneeded = function (event) {
 
 request.onsuccess = function (event) {
   db = event.target.result;
+  isDb = true;
 };
 
 request.onerror = function (event) {
@@ -164,7 +166,12 @@ function renderChecklistFromJSON(jsonData) {
 }
 
 window.onload = function () {
-  loadSavedChecklists();
+  let x = setTimeout(() => {
+    if (isDB) {
+      loadSavedChecklists();
+      x.clearTimeout();
+    }
+  }, 1000);
 };
 
 function saveChecklistToIndexedDB() {
@@ -240,9 +247,9 @@ function renderViewChecklist(checklist) {
   checklist.items.forEach((item) => {
     const checklistItem = document.createElement("div");
     checklistItem.classList.add("checklist-item-view");
-    let x = item.description ? `<textarea class="checklist-item-description" disabled>${
-          item.description
-        }</textarea>` : "";
+    let x = item.description
+      ? `<textarea class="checklist-item-description" disabled>${item.description}</textarea>`
+      : "";
     checklistItem.innerHTML = `
         <div class="checklist-item-checkbox">
           <input type="checkbox" ${
@@ -326,10 +333,9 @@ function editChecklist(title) {
 
       // Populate the checklist items
       checklist.items.forEach((item) => {
-        if (item.title){
-        addChecklistItem(item.title, item.description, item.checkStatus);
+        if (item.title) {
+          addChecklistItem(item.title, item.description, item.checkStatus);
         }
-      
       });
     } else {
       console.error(`No checklist found with title: ${title}`);
