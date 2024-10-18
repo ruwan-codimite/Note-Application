@@ -12,7 +12,7 @@ request.onupgradeneeded = function (event) {
 
 request.onsuccess = function (event) {
   db = event.target.result;
-  isDb = true;
+  isDB = true;
 };
 
 request.onerror = function (event) {
