@@ -166,10 +166,10 @@ function renderChecklistFromJSON(jsonData) {
 }
 
 window.onload = function () {
-  let x = setTimeout(() => {
-    if (isDB) {
+  var x  = setInterval(function() {
+    if(isDB){
       loadSavedChecklists();
-      x.clearTimeout();
+      clearInterval(x);
     }
   }, 1000);
 };
