@@ -1,10 +1,10 @@
 const CACHE_NAME = "checklist-pwa-v1";
 const urlsToCache = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/app.js",
-  "/manifest.json"
+  "/Note-Application/",
+  "/Note-Application/index.html",
+  "/Note-Application/styles.css",
+  "/Note-Application/app.js",
+  "/Note-Application/manifest.json"
 ];
 
 // Install the service worker
