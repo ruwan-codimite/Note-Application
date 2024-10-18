@@ -265,19 +265,20 @@ function renderViewChecklist(checklist) {
 
 // Function to fetch saved checklists from IndexedDB and render them in the sidebar
 function loadSavedChecklists() {
-  const transaction = db.transaction(["checklists"], "readonly");
-  const objectStore = transaction.objectStore("checklists");
-  const request = objectStore.getAll();
+  try {
+    const transaction = db.transaction(["checklists"], "readonly");
+    const objectStore = transaction.objectStore("checklists");
+    const request = objectStore.getAll();
 
-  request.onsuccess = function (event) {
-    const checklists = event.target.result;
-    const sidebarMenu = document.querySelector(".sidebar-menu");
-    sidebarMenu.innerHTML = ""; // Clear existing sidebar items
+    request.onsuccess = function (event) {
+      const checklists = event.target.result;
+      const sidebarMenu = document.querySelector(".sidebar-menu");
+      sidebarMenu.innerHTML = ""; // Clear existing sidebar items
 
-    checklists.forEach((checklist) => {
-      const menuItem = document.createElement("div");
-      menuItem.classList.add("menu-item");
-      menuItem.innerHTML = `
+      checklists.forEach((checklist) => {
+        const menuItem = document.createElement("div");
+        menuItem.classList.add("menu-item");
+        menuItem.innerHTML = `
           <div class="item-title">${checklist.mainTitle}</div>
           <div class="item-buttons">
             <button class="delete-item" onclick="deleteChecklist('${checklist.mainTitle}')"><i class="bi bi-trash"></i></button>
@@ -286,13 +287,16 @@ function loadSavedChecklists() {
             <button class="view-item" onclick="viewChecklist('${checklist.mainTitle}')"><i class="bi bi-eye"></i></button>
           </div>
         `;
-      sidebarMenu.appendChild(menuItem);
-    });
-  };
+        sidebarMenu.appendChild(menuItem);
+      });
+    };
 
-  request.onerror = function (event) {
-    console.error("Error fetching checklists from IndexedDB", event);
-  };
+    request.onerror = function (event) {
+      console.error("Error fetching checklists from IndexedDB", event);
+    };
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function viewChecklist(title) {
