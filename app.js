@@ -278,13 +278,13 @@ function loadSavedChecklists() {
       checklists.forEach((checklist) => {
         const menuItem = document.createElement("div");
         menuItem.classList.add("menu-item");
-        menuItem.setAttribute("onclick", `viewChecklist('${checklist.mainTitle}')`);
         menuItem.innerHTML = `
           <div class="item-title">${checklist.mainTitle}</div>
           <div class="item-buttons">
             <button class="delete-item" onclick="deleteChecklist('${checklist.mainTitle}')"><i class="bi bi-trash"></i></button>
             <button class="edit-item" onclick="editChecklist('${checklist.mainTitle}')"><i class="bi bi-pencil"></i></button>
             <button class="export-item" onclick="exportChecklist('${checklist.mainTitle}')"><i class="bi bi-download"></i></button>
+            <button class="view-item" onclick="viewChecklist('${checklist.mainTitle}')"><i class="bi bi-eye"></i></button>
           </div>
         `;
         sidebarMenu.appendChild(menuItem);
